@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ flower.name }}</h2>
+<p>{{ flower.description }}</p>
+<p>Цена: {{flower.price}} руб.</p>
+<a href="{% url 'catalog_home' %}" class="button">Назад к каталогу</a>
+{% endblock %}

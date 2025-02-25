@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>История заказов</h2>
+<div class="order-history">
+    {% for order in orders %}
+        <div class="order-item">
+            <h3>Заказ №{{ order.id }} (Статус: {{ order.get_status_display }})</h3>
+            <ul>
+                {% for flower in order.flowers.all %}
+                    <li>{{ flower.name }} - {{ flower.price }} руб.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

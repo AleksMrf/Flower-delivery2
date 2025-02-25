@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Каталог цветов</h2>
+<div class="flower-list">
+    {% for flower in flowers %}
+        <div class="flower-item">
+            <h3><a href="{% url 'flower_detail' flower.id %}">{{ flower.name }}</a></h3>
+            <p>Цена: {{flower.price}} руб.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

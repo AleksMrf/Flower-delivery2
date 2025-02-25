@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Оформление заказа</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="flower-list">
+        {% for flower in flowers %}
+            <div class="flower-item">
+                <input type="checkbox" name="flowers" value="{{ flower.id }}">
+                {{ flower.name }} - {{ flower.price }} руб.
+            </div>
+        {% endfor %}
+    </div>
+    <button type="submit" class="button">Оформить заказ</button>
+</form>
+{% endblock %}
