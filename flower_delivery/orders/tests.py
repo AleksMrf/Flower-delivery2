@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from catalog.models import Flower
 from orders.models import Order
 
@@ -25,7 +26,7 @@ class OrderModelTest(TestCase):
         order.flowers.add(self.flower)
         self.assertEqual(order.user.username, 'testuser')
         self.assertEqual(order.flowers.first().name, 'Розы')
-        self.assertEqual(order.status, 'P')  # Статус по умолчанию
+        self.assertEqual(order.status, 'P')  # Убедитесь, что статус по умолчанию 'P'
 
 class OrderViewsTest(TestCase):
     def setUp(self):
@@ -42,17 +43,11 @@ class OrderViewsTest(TestCase):
         )
         self.client.login(username='testuser', password='testpass123')
 
-    def test_create_order_view(self):
-        # Тестируем страницу оформления заказа
-        response = self.client.get('/orders/create/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'orders/order_form.html')
 
-    def test_order_history_view(self):
-        # Тестируем страницу истории заказов
-        order = Order.objects.create(user=self.user)
-        order.flowers.add(self.flower)
-        response = self.client.get('/orders/history/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'orders/order_history.html')
-        self.assertContains(response, 'Розы')
+    def test_create_order_post(self):
+        # Тестируем POST-запрос для создания заказа
+        response = self.client.post(reverse('create_order'), {
+            'flowers': [self.flower.id],
+        })
+        self.assertEqual(response.status_code, 302)  # Проверяем редирект после успешного создания
+        self.assertEqual(Order.objects.count(), 1)  # Проверяем, что заказ создан

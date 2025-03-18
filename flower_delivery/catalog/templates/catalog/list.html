@@ -5,8 +5,10 @@
 <div class="flower-list">
     {% for flower in flowers %}
         <div class="flower-item">
-            <h3><a href="{% url 'flower_detail' flower.id %}">{{ flower.name }}</a></h3>
-            <p>Цена: {{flower.price}} руб.</p>
+            <h3>{{ flower.name }}</h3>
+            <p>{{ flower.description }}</p>
+            <p>Цена: {{ flower.price }} руб.</p>
+            <a href="{% url 'add_to_cart' flower.id %}" class="button">В корзину</a>
         </div>
     {% endfor %}
 </div>

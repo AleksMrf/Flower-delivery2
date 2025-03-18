@@ -2,16 +2,20 @@
 
 {% block content %}
 <h2>История заказов</h2>
-<div class="order-history">
-    {% for order in orders %}
-        <div class="order-item">
-            <h3>Заказ №{{ order.id }} (Статус: {{ order.get_status_display }})</h3>
-            <ul>
-                {% for flower in order.flowers.all %}
-                    <li>{{ flower.name }} - {{ flower.price }} руб.</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endfor %}
-</div>
+{% if orders %}
+    <ul>
+        {% for order in orders %}
+            <li>
+                Заказ №{{ order.id }} (Статус: {{ order.get_status_display }})
+                <ul>
+                    {% for item in order.order_items.all %}
+                        <li>{{ item.flower.name }} - {{ item.quantity }} шт.</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>У вас пока нет заказов.</p>
+{% endif %}
 {% endblock %}

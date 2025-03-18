@@ -1,0 +1,20 @@
+<!-- orders/templates/orders/cart.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Ваша корзина</h2>
+{% if cart.items.all %}
+    <ul>
+        {% for item in cart.items.all %}
+            <li>
+                {{ item.flower.name }} - {{ item.quantity }} шт.
+                <a href="{% url 'remove_from_cart' item.id %}">Удалить</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>Общая сумма: {{ cart.total_price }} руб.</p>
+    <a href="{% url 'checkout' %}" class="button">Оформить заказ</a>
+{% else %}
+    <p>Ваша корзина пуста.</p>
+{% endif %}
+{% endblock %}
