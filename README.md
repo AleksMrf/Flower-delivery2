@@ -75,7 +75,8 @@ TELEGRAM_BOT_TOKEN = 'ВАШ_ТОКЕН_БОТА'
 
 bash
 Copy
-python manage.py runserver
+pyt
+hon manage.py runserver
 Запустите Telegram бота:
 
 bash
